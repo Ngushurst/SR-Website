@@ -1,0 +1,31 @@
+{
+  "config": {
+    "base_url": "http://localhost:5000/",
+    "server_port": 5000,
+    "session_timeout": 24
+  },
+  "db": {
+    "host": "localhost",
+    "user": "root",
+    "password": "",
+    "database": "summit_reviews"
+  },
+  "email": {
+    "host": "",
+    "port": 465,
+    "auth": {
+      "user": "pending@email.com",
+      "pass": "pending"
+    }
+  },
+  "file_store": {
+    "onprem": {
+      "base_dir": "./files"
+    },
+    "type": "onprem"
+  },
+  "log": {
+    "level": "info",
+    "path": "./logs/SR.log"
+  }
+}

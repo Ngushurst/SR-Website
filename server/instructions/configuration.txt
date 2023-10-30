@@ -1,0 +1,42 @@
+
+The configuration file (config.json) enables a host to alter some aspects of the
+server or otherwise set up some of its services.
+
+config: {
+    base_url: Url conencted the the server's IP address. Used for testing.
+    server_port: Port that the server should be run on. Change it if running different servers on the same IP.
+    session_timeout: The time, in hours, that it takes for a login token to expire.
+}
+
+db: {
+    host: IP address or hostname of the database server
+    user: The username used to log into the database
+    password: The password sued to log into the database
+    database: The name of the database being used
+}
+
+email: {
+    host: Email host website. Ex: www.gmail.com
+    port: Leave this as 465.
+    auth: {
+        user: Email address to use
+        pass: Password to above email address.
+    }
+}
+
+file_store: {
+    onprem: { Files are stored locally
+        base_dir: A relative file path from where the server is run to where files should be stored.
+    }
+    s3: { Files are stored remotely in AWS S3 (not implemented)
+        bucket: Link to the S3 bucket
+        ??
+    }
+    type: The type of file store to use.
+}
+
+log: {
+    level: What logs should be recorded (target level + all levels above)
+           Levels, in order, are: trace/debug/info/warn/error/fatal
+    path: Where the logs should be stored.
+}
