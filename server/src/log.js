@@ -7,7 +7,6 @@
  *   const log = require('./log');
  *   log.error({err: error}, 'server.js');
  *  
- *
  * The method used indicates the serverity of the log. The log file can be read using bunyan the
  * command line to find logs for only one level of logs.
  * */
@@ -18,10 +17,9 @@ const path = require('path');
 const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json'));
 
 let log;
-let log_path;
-if (config.log.path) {
-  log_path = config.log.path.startsWith('.') ? // If starting with '.', make relative path from the server base directory. Else, assume to be a literal path.
-  path.join(process.cwd(), config.log.path) : path.join(config.log.path);
+let logPath;
+if (config.log.path) {// If starting with '.', make relative path from the server base directory. Else, assume to be a literal path.
+  logPath = config.log.path.startsWith('.') ? path.join(process.cwd(), config.log.path) : path.join(config.log.path);
 }
 
 /**
@@ -39,9 +37,12 @@ function create_logger() {
         err: bunyan.stdSerializers.err,
         req: reqSerializer,
       },
-      stream: { // Opens up a stream to a file at the specified path, or creates a new file if it's not there.
-        path: log_path,
-      }
+      streams: [{ // Opens up a stream to a file at the specified path, or creates a new file if it's not there.
+        type: 'rotating-file',  // rotate files to protect against file growing to massive size
+        path: logPath, // path to the log file
+        period: config.log.rotation_period,  // how often to rotate logs
+        count: config.log.retain // number of logs to retain at one time
+      }]
     };
     log = bunyan.createLogger(params); // Generate the logger
   }

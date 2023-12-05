@@ -2,20 +2,21 @@
   "config": {
     "base_url": "http://localhost:5000/",
     "server_port": 5000,
-    "session_timeout": 24
+    "session_timeout": 24,
+    "secret": "pending"
   },
   "db": {
     "host": "localhost",
-    "user": "root",
-    "password": "",
+    "user": "sr_user",
+    "password": "pending",
     "database": "summit_reviews"
   },
   "email": {
-    "host": "",
+    "host": "gmail",
     "port": 465,
     "auth": {
-      "user": "pending@email.com",
-      "pass": "pending"
+      "user": "ngushurst@gmail.com",
+      "pass": "Bravery&&Cruelty"
     }
   },
   "file_store": {
@@ -26,6 +27,8 @@
   },
   "log": {
     "level": "info",
-    "path": "./logs/SR.log"
+    "path": "./logs/SR.log",
+    "rotation_period": "1d",
+    "retain": 5
   }
 }

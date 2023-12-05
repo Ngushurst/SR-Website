@@ -10,8 +10,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "bunyan": "^1.8.15",
+    "cluster": "^0.7.7",
     "express": "^4.17.1",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.9.7",
+    "uuid": "^9.0.1"
   }
 }

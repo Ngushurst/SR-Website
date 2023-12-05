@@ -1,11 +1,16 @@
-const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json'));
-const { dbquery } = require('db');
+const { dbquery } = require('./db');
 const fs = require('fs');
+
+const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json'));
 
 /**
  * Contains a handful of methods to access and manipulate files in the file store.
  **/
 class FileStore {
+  /**
+   * Uploads a new file to the file store.
+   * @param {any} handle
+   */
   async add(handle) {
     return;
   }

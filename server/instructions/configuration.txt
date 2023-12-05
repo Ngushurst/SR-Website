@@ -29,8 +29,8 @@ file_store: {
         base_dir: A relative file path from where the server is run to where files should be stored.
     }
     s3: { Files are stored remotely in AWS S3 (not implemented)
-        bucket: Link to the S3 bucket
-        ??
+        bucket: The name of the S3 bucket.
+        region: Which AWS region the bucket is hosted in.
     }
     type: The type of file store to use.
 }
@@ -39,4 +39,9 @@ log: {
     level: What logs should be recorded (target level + all levels above)
            Levels, in order, are: trace/debug/info/warn/error/fatal
     path: Where the logs should be stored.
+    rotation_period: Interval by which to write to a new log file. (ex: one log file per day)
+    retain: The number of logs to retain at a time, with the oldest being deleted. (ex: keep the five most recent logs)
+},
+token: {
+    secret: A string used to open and encrypt all login tokens.
 }

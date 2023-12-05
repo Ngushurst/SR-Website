@@ -15,17 +15,14 @@ CREATE TABLE IF NOT EXISTS article(
 );
 CREATE TABLE IF NOT EXISTS article_history(
 	id int NOT NULL AUTO_INCREMENT,
+    version int NOT NULL,
     article_id int NOT NULL,
 	version smallint NOT NULL,
 	action varchar(16) NOT NULL,
 	changed_by int NOT NULL,
 	changed_on datetime NOT NULL,
 	title varchar(128),
-	created_by int,
-	created_on datetime,
-    file_id int,
 	published tinyint,
-	published_on datetime,
 	summary varchar(256),
 	metadata json,
 	tags varchar(128),
@@ -42,6 +39,7 @@ CREATE TABLE IF NOT EXISTS category(
 );
 CREATE TABLE IF NOT EXISTS category_history(
 	id integer NOT NULL AUTO_INCREMENT,
+    version int NOT NULL,
     category_id int NOT NULL,
 	version smallint NOT NULL,
 	action varchar(16) NOT NULL,
@@ -78,6 +76,7 @@ CREATE TABLE IF NOT EXISTS role(
 );
 CREATE TABLE IF NOT EXISTS role_history(
 	id int NOT NULL AUTO_INCREMENT,
+    version int NOT NULL,
 	role_id int NOT NULL,
     action varchar(16) NOT NULL,
     changed_by datetime NOT NULL,
@@ -95,9 +94,10 @@ CREATE TABLE IF NOT EXISTS tag(
 CREATE TABLE IF NOT EXISTS user(
 	id int NOT NULL AUTO_INCREMENT,
     email varchar(256) NOT NULL,
-    name varchar(128) NOT NULL,
+    username varchar(128) NOT NULL,
     password varchar(64) NOT NULL,
     status varchar(16) NOT NULL,
+    created_on datetime NOT NULL,
     roles varchar(64),
     resource_id int,
     auto_biography_id int,
@@ -105,17 +105,14 @@ CREATE TABLE IF NOT EXISTS user(
 );
 CREATE TABLE IF NOT EXISTS user_history(
 	id int NOT NULL AUTO_INCREMENT,
-    version smallint NOT NULL,
+    version int NOT NULL,
     user_id int NOT NULL,
-    action int NOT NULL,
-    changed_by datetime NOT NULL,
+	action varchar(16) NOT NULL,
+    changed_by int NOT NULL,
     changed_on datetime NOT NULL,
     email varchar(256),
-    name varchar(128),
-    password varchar(64),
+    username varchar(128),
     status varchar(16),
     roles varchar(64),
-    resource_id int,
-    auto_biography_id int,
     PRIMARY KEY(id)
 );

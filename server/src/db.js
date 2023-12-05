@@ -1,3 +1,4 @@
+const fs = require('fs');
 const mysql = require('mysql');
 const util = require('util');
 const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json'));
@@ -13,10 +14,11 @@ let db, dbquery;
  *     else {
  *       dbq = util.promisify(connection.query).bind(connection);
  *       await dbq(query_string, [arguments]);
+ *       connection.release();
  *     }
- *   );
+ *   });
  *   This connection is asyncronous and does not return anything directly. An output can be extracted from it by
- *   wrapping it in a promise (await new promise(resolve)=> {db.getConnection(...)}) and setting an external
+ *   wrapping it in a promise (await new promise((resolve)=> {db.getConnection(...)})) and setting an external
  *   variable within the callback with the connection or returning something with resolve.
  *   While it requires more work, queries made within the callback will all occur in the same
  *   connection, allowing more complex queries and sql transactions.

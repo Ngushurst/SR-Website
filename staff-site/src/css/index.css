@@ -11,3 +11,391 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* System Styles. */
+.AppAlert { /* app alert, e.g., an error message */
+  position: absolute !important;
+  padding: 10px 15px !important;
+  top: 30px;
+  left: 50%;
+  margin-left: -250px;
+  width: 500px;
+  z-index: 2000;
+}
+
+.BackButton { /* folder management buttons */
+  background-color: inherit !important;
+  background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+  border: 1px solid #ccc !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
+  color: #333 !important;
+}
+
+.Browse { /* content container */
+  background-color: #fff !important;
+  top: 52px !important;
+}
+
+.ButtonGroup, .ContentTabs { /* content tabs */
+  margin-bottom: 20px !important;
+}
+
+.Content { /* content container */
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+  height: calc(100vh - 52px);
+  overflow-x: auto;
+  overflow-y: auto;
+  padding: 20px 40px !important;
+  z-index: 1;
+}
+
+div.AppAlert > button { /* dialog alert, e.g., an error message */
+  padding: 3px 10px !important;
+}
+
+div.dropdown > button.btn-secondary { /* change style for dropdown next to small screen folder selector */
+  color: #6C757D !important;
+  background-color: #fff !important;
+  border-color: #ced4da !important;
+}
+
+.DlgAlert { /* dialog alert, e.g., an error message */
+  margin-bottom: 2px !important;
+}
+
+.DlgButton { /* dialog button, such as Cancel */
+  background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%) !important;
+  border: 1px solid #ccc !important;
+  color: #333 !important;
+}
+
+.DlgButtonDefault { /* default dialog button, such as OK */
+  background-color: #337ab7 !important;
+  background-image: linear-gradient(to bottom,#337ab7 0,#353c97 100%) !important;
+  border-color: #353c97 !important;
+  border: 1px solid transparent;
+  color: #fff !important;
+}
+
+.DlgCheckbox {
+  display: block;
+  margin-left: 20px;
+}
+
+.DlgCheckboxCtrl {
+  padding-top: 8px;
+  max-height: 170px;
+  overflow-y: auto;
+}
+
+.DlgCheckboxGroup { /* dialog checkbox group */
+  margin-top: 5px;
+  max-height: 150px;
+  overflow: auto;
+}
+
+.FormButton { /* form button, such as Cancel */
+  background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%) !important;
+  border: 1px solid #ccc !important;
+  color: #333 !important;
+}
+
+.FormButtonDefault { /* default form button, such as OK */
+  background-color: #337ab7 !important;
+  background-image: linear-gradient(to bottom,#337ab7 0,#353c97 100%) !important;
+  border-color: #353c97 !important;
+  border: 1px solid transparent;
+  color: #fff !important;
+  margin-right: 10px;
+}
+
+.FormDiv { /*Form collumn containing a div with text*/
+  padding-top: 7px;
+  padding-left: 5px;
+}
+
+.FormTable {
+  padding: 10px 15px;
+}
+
+.FormTableColCheckbox { /* form table column header */
+  padding-top: 8px;
+  padding-left: 35px;
+  text-align: left;
+}
+
+.FormTableColRight { /* form table column header, align right */
+  padding-right: 5px;
+  text-align: right;
+}
+
+.ModalTitleBar { /* modal title bar title container */
+  display: flex;
+  width: 100%;
+}
+
+.ModalTitleControl { /* modal title bar control, e.g., edit, delete, etc. */
+  padding: 0px 6px;
+}
+
+  .ModalTitleControl:hover {
+    cursor: pointer;
+  }
+
+.ModalTitleControlActive { /* displays modal title bar control as active */
+  border-radius: 5px;
+  background: #ffd280;
+}
+
+.ModalTitleControls { /* modal title bar controls container */
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  color: #707070;
+}
+
+.ModalTitleText { /* modal title bar text */
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.NavBarButton { /* navbar button padding */
+  padding-left: .5em !important;
+  padding-right: .5em !important;
+}
+
+.NavBarButtons { /* navbar button direction */
+  flex-direction: row !important;
+}
+
+.NavBarName { /* company name on navbar */
+  color: #252968 !important;
+  font-weight: bold;
+}
+
+.FolderNavigator { /* folder navigator - set height and auto scrolling on overflow */
+  height: calc(100vh - 52px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  /*white-space: nowrap;
+  text-overflow: ellipsis;*/
+}
+
+.FolderManager + .FolderNavigator { /* adjust folder panel height if folder manager precedes folder navigator */
+  height: calc(100vh - 90px);
+}
+
+.QueryControl {
+  margin-bottom: 10px;
+}
+
+.SideBar2 { /* sidebar container - named SideBar2 due to conflict with other library */
+  background-color: #f8f9fa !important;
+  border-right: 1px solid #ccc;
+  /*height: calc(100vh - 52px);*/
+  padding: 0 !important;
+  z-index: 1;
+  /*min-width: 260px;
+  max-width: 300px;*/
+  width: 300px;
+}
+
+.SideBarButton { /* side bar buttons */
+  background-color: #f8f9fa !important;
+  border-bottom: 1px solid #ccc !important;
+  border-top: 1px solid #ccc !important;
+  border-left: 1px solid #ccc !important;
+  border-right: none !important;
+  color: #333;
+  cursor: pointer;
+  /*font-size: 16px;*/
+  padding-bottom: 6px !important;
+  padding-left: 10px;
+  padding-top: 6px !important;
+}
+
+  .SideBarButton:first-child {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+  }
+
+  .SideBarButton:last-child {
+    border-bottom-left-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+
+  .SideBarButton.active {
+    background-image: linear-gradient(to bottom,#337ab7 0,#353c97 100%);
+    border-color: #353c97 !important;
+    color: #fff;
+  }
+
+.SideBarNavButton {
+  margin-bottom: 10px;
+}
+
+.TableControlButton { /* table control buttons */
+  background-color: inherit !important;
+  background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+  border: 1px solid #ccc !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
+  color: #6C757D !important;
+}
+
+.TableHeader, .TableHeaderPad { /* table header text */
+  font-size: 22px;
+  font-weight: 500;
+  color: inherit;
+  margin-right: 10px;
+  display: inline;
+}
+
+.TableHeaderPad { /* table header text */
+  display: block;
+  margin-bottom: 10px;
+}
+
+.TableLink { /* table action links */
+  padding: 0px !important;
+  color: #337ab7 !important;
+}
+
+.TableLinkPad { /* table action links with padding */
+  margin-right: 5px;
+  padding: 0px !important;
+  color: #337ab7 !important;
+}
+
+.Tabs { /* navigation tabs */
+  margin-bottom: 20px;
+}
+
+.UploadBadge { /* upload badge showing number of files in upload queue */
+  vertical-align: super;
+}
+
+.UploadManager { /* upload status container */
+  margin-bottom: 20px;
+}
+/* Media size queries. */
+@media screen and (max-width: 576px) {
+  .Content {
+    padding-top: 20px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
+
+@media screen and (min-width: 577px) and (max-width: 992px) {
+  .LicenseForm {
+    padding-top: 20px !important;
+    padding-left: 10px !important;
+    padding-right: 30px !important;
+  }
+}
+
+@media screen and (min-width: 993px) and (max-width: 1400px) {
+  .LicenseForm {
+    padding-top: 20px !important;
+    padding-left: 0px !important;
+    padding-right: 50px !important;
+  }
+}
+
+@media screen and (min-width: 1401px) {
+  .LicenseForm {
+    padding-top: 20px !important;
+    padding-left: 0px !important;
+    padding-right: 100px !important;
+  }
+}
+/*
+@media screen and (max-width: 576px) {
+  .Content {
+    padding: 20px 15px!important;
+  }
+}
+@media screen and (min-width: 577px) and (max-width: 992px) {
+  .LicenseForm {
+    padding: 20px 30px 20px 25px!important;
+  }
+}
+
+@media screen and (min-width: 993px) {
+  .LicenseForm {
+    padding: 20px 150px 20px 120px!important;
+  }
+}*/
+
+/* Bootstrap overrides. */
+@media (min-width: 300px) { /* for user dropdown on navbar */
+  .navbar-expand-sm .navbar-nav .dropdown-menu-right {
+    right: 0;
+    left: auto;
+    position: absolute;
+  }
+}
+
+a.nav-link { /* tab link color */
+  color: #337ab7;
+}
+
+  a.nav-link:hover { /* tab link background color */
+    background-color: #f8f9fa;
+  }
+
+body {
+  font-size: 0.9375rem; /* 15pt */
+}
+
+.btn:focus { /* remove the weird focus shadow */
+  box-shadow: none !important;
+}
+
+.col-form-label { /* reduce spacing between form labels and inputs */
+  padding-right: 5px !important;
+  text-align: right;
+}
+
+.form-check-input { /* to enable max-height and overflow-y on a form checkbox control */
+  position: relative;
+}
+
+.form-group { /* spacing between form components */
+  margin-bottom: 3px !important;
+}
+
+.navbar {
+  padding: 4px 16px !important;
+}
+
+.progress {
+  height: 24px;
+  margin-top: 5px;
+}
+
+.progress-bar { /* override color for reactstrap progress bar to be same blue as used for links */
+  background-color: #337ab7;
+}
+
+.react-bootstrap-table table { /* allow cells to resize based on content */
+  table-layout: auto !important;
+}
+
+.react-bootstrap-table td > .selection-input-4 { /* center checkbox in td */
+  margin-left: 5px !important;
+}
+
+.react-bootstrap-table th[data-row-selection] { /* center checkbox in th */
+  text-align: center;
+}
+
+.table-striped tbody tr:nth-of-type(odd) { /* table odd row background color */
+  background-color: #f8f9fa !important;
+}
+
+h5.modal-title { /* for modal dialog, to support text plus actions on the title bar */
+  display: flex;
+  width: 100%;
+}

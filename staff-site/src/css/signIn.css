@@ -1,0 +1,44 @@
+@media all and (min-width: 480px) {
+  .SigninAlert {
+    margin-bottom: 2px!important;
+  }
+  .Signin {
+    background-color: #fff;
+    border: 1px solid;
+    border-color: #ddd;
+    border-radius: 4px;
+    margin: 0 auto;
+    margin-top: 50px;
+    max-width: 360px;
+    padding: 20px;
+  }
+  .SigninButton {
+    background-image: linear-gradient(to bottom,#337ab7 0,#353c97 100%);
+    border-color: #353c97;
+  }
+  .SigninForgotLink {
+    display: block;
+    width: 100%;
+    text-align: right!important;
+    padding-right: 0px!important;
+  }
+  .SigninHeader {
+    display: block;
+    text-align: -webkit-center;
+    margin-bottom: 20px;
+  }
+  .SigninInput {
+    margin-bottom: 2px;
+  }
+  .SigninName {
+    font-size: 32px;
+    font-weight: bold;
+    color: #252968;
+  }
+  .SigninLogo {
+    margin-right: 10px;
+    margin-top: -15px;
+    width: 128px;
+    height: 128px;
+  }
+}

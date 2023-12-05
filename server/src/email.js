@@ -1,7 +1,8 @@
+const fs = require('fs');
 const nodemailer = require('nodemailer'); // Documentation -> https://nodemailer.com/
-const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json'));
 const log = require('./log');
 
+const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json'));
 let transport; // Node mailer object used to send emails. Reusable.
 
 /**
@@ -14,16 +15,17 @@ let transport; // Node mailer object used to send emails. Reusable.
  */
 function send(recipients, subject, body) {
   let error = '';
-  const msg = {
+  const mailOptions = {
     to: recipients,
-    from: config.email.user,
+    from: config.email.auth.user,
     subject: subject,
     html: body // Could alternatively pass plain text into a 'text' property.
   };
   try {
     let mailer = get_transport();
     if (mailer) {
-      mailer.sendMail(msg, function (err, info) {
+      console.log(mailOptions);
+      mailer.sendMail(mailOptions, function (err, info) {
         if (err) {
           log.error({ err: err }, 'email.send');
           error = 'Failed to send Email.';
@@ -42,6 +44,8 @@ function send(recipients, subject, body) {
 
 /**
  * Creates the object needed to send an email using the parameters set in config.json.
+ * 
+ * NOTE: As of 2022, gmail does not allow access by third party apps even if they have the right credentials.
  * */
 function get_transport() {
   if (!transport) {
@@ -53,7 +57,7 @@ function get_transport() {
     if (config.email.proxy) {
       data.proxy = config.email.proxy;
     } else {
-      data.auth = config.email.auth;
+      data.auth = config.email.auth; // {user, pass}
     }
     try {
       transport = nodemailer.createTransport(data);

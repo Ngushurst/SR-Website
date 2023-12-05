@@ -1,7 +1,16 @@
 /* App Actions */
-export const CLEAR_APP = "CLEAR_APP"
-export const HIDE_DLG = "HIDE_DLG"
-export const HIDE_NOTIFICATION = "HIDE_NOTIFICATION"
-export const SET_DLG = "SET_DLG"
-export const SET_NOTIFICATION = "SET_NOTIFICATION"
-export const SET_PAGE = "SET_PAGE"
+export const CLEAR_APP = "CLEAR_APP";
+export const HIDE_DLG = "HIDE_DLG";
+export const HIDE_NOTIFICATION = "HIDE_NOTIFICATION";
+export const SET_DLG = "SET_DLG";
+export const RESTORE_SESSION = "RESOTRE_SESSION";
+export const SET_NOTIFICATION = "SET_NOTIFICATION";
+export const SET_PAGE = "SET_PAGE";
+
+/* Article Actions */
+
+/* User Actions */
+export const SESSION_TIMEOUT = "SESSION_TIMEOUT";
+export const AUTHENTICATE_USER_FULFILLED = "AUTHENTICATE_USER_FULFILLED";
+export const GET_USER_HISTORY_FULFILLED = "GET_USER_HISTORY_FULFILLED";
+export const GET_USERS_FULFILLED = "GET_USERS-FULFILLED";

@@ -11,8 +11,7 @@
  * The server can be built into an executable with 'pkg server.js'. Does not include config.js, file store, or database.
  * */
 const cluster = require('cluster');
-const compression = require('compression'); // Express middleware - https://www.npmjs.com/package/compression
-const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json')); // Do not use path. Using path will cause pkg to pull in the config file.
+//const compression = require('compression'); // Express middleware - https://www.npmjs.com/package/compression
 const CONSTANTS = require('./src/constants');
 const cpu_count = require('os').cpus().length;
 const express = require('express');
@@ -23,6 +22,8 @@ const path = require('path');
 
 const Article = require('./src/article');
 const User = require('./src/user');
+
+const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json')); // Do not use path. Using path will cause pkg to pull in the config file.
 
 /*
  * ==========================
@@ -45,16 +46,18 @@ if (cluster.isMaster) { // Used to set up worker instances and perform server-wi
   }
   cluster.on('exit', (worker, code, signal) => {
     if (code) {
-      message = `SA-Server exited with code: ${code}`;
-      console.log(message);
+      message = `SR-Server exited with code: ${code}`;
       if (code === 1) { // An unahandled error occured, causing the server to close.
+        console.log(message);
         log.error(message);
         cluster.fork(); // boot up another server instance
+      } else if (code === 3221225786) { // Master received SIGINT response
+        // Shut down worker instance.
       } else { // Something happened to close the process. Log the issued code.
-        log.info(message);
+        log.info(`SR-Server exited with an unrecognized code: ${code}`);
       }
     } else if (signal) {
-      message = `SA-Server killed with signal: ${signal}`;
+      message = `SR-Server killed with signal: ${signal}`;
       log.info(message);
       console.log(message);
     }
@@ -65,7 +68,7 @@ if (cluster.isMaster) { // Used to set up worker instances and perform server-wi
     log.info(message);
   });
 } else { // Starting worker instance.
-  message = `Starting SA worker instance on: ${process.pid}`;
+  message = `Starting SR worker instance on: ${process.pid}`;
   log.info(message);
   console.log(message);
   start_instance(); // Prepare the instance for receiving traffic
@@ -90,12 +93,14 @@ function start_instance() {
   // set up constants
   const app = express(); // router used for distributing pages some resources.
   const port = config.config.server_port;
-  const staffApi = express.router(); // router used for all staff-only APIs
+  const staffApi = express.Router(); // router used for all staff-only APIs
   // set up handlers
   const articleHandler = new Article();
   const userHandler = new User();
   // set up express middleware
   app.use(logAction);
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
   //app.use(compression); // supposedly compresses the response to increase network performance at the expense of some server work.
 
   // V MANDATORY V for getting the app to send. If you don't set up the express.static, it'll just send the html files on their own without the rest of the react app or styling.
@@ -137,20 +142,25 @@ function start_instance() {
 
   // Article Categories
   staffApi.delete('/categories/:id', authenticate, articleHandler.deleteCategory);
-  staffApi.getArticles('/categories', authenticate, articleHandler.getCategories);
+  staffApi.get('/categories', authenticate, articleHandler.getCategories);
   staffApi.post('/categories', authenticate, articleHandler.addCategory);
   staffApi.put('/categories/:id', authenticate, articleHandler.editCategory);
 
+  // Log in/out
+  staffApi.post('/sign_in', userHandler.signIn);
+  staffApi.post('/sign_out', userHandler.signOut);
+
   // User Accounts
   staffApi.post('/users', authenticate, userHandler.addUser);
+  staffApi.put('/users/:id/autobiography', authenticate, userHandler.editAutobiography);
+  staffApi.put('/users/:id/pfp', authenticate, userHandler.editProfilePicture);
   staffApi.put('/users/:id', authenticate, userHandler.editUser);
-  staffApi.get('/users', authenticate, userHandler.getUser);
-  staffApi.post('/users/first', userHandler.add);
-  staffApi.get('/users/history/:id', authenticate, userHandler.getUserHistory);
+  staffApi.get('/users', authenticate, userHandler.getUsers);
+  staffApi.post('/users/first', userHandler.addUser);
+  staffApi.get('/users/:id/history', authenticate, userHandler.getUserHistory);
 
   staffApi.post('/users/password/reset', authenticate, userHandler.resetPassword);
   staffApi.post('/users/password/reset_request', userHandler.requestPasswordReset);
-  staffApi.post('/users/password/reset_signin', userHandler.resetPassword);
 
   // User Roles
   staffApi.delete('/roles/:id', authenticate, userHandler.deleteRole);
@@ -159,10 +169,10 @@ function start_instance() {
   staffApi.post('/roles', authenticate, userHandler.addRole);
   staffApi.put('/roles/:id', authenticate, userHandler.editRole);
 
-  app.use('/admin', staffApi); // All staff APIs must be in the form of url/admin/...
+  app.use('/admin', staffApi); // All staff APIs must be in the form of url/admin/*
 
   // Start server
-  app.listen(port, () => console.log(`Server is listening on port: ${port}`));
+  app.listen(port, () => console.log(`SR worker instance is listening on port: ${port}`));
 };
 
 
@@ -170,13 +180,14 @@ function start_instance() {
  * Checks a the request for a login token. Verifies that the token
  * is both present and valid before progressing to the next action.
  * */
-async function autheticate(req, res, next) {
+function authenticate(req, res, next) {
   let token = req.headers.authorization;
   if (token) {
-    jwt.verify(token, CONSTANTS.APP_SERVER.SECRET, (error, decoded) => {
-      if (error) { // Authentication failed.
-        if (error.message === 'Invalid Token') { // Object is not a json web token
-          return res.status(400).json({ message: 'Invalid token.' });
+    token = (token.startsWith('Bearer ')) ? token.slice(7, token.length) : token; // Remove extra text at the front.
+    jwt.verify(token, config.config.secret, (error, decoded) => {
+      if (error) { // Authentication failed. See documentation for error types: https://www.npmjs.com/package/jsonwebtoken
+        if (error.message === 'invalid token') { // Object is not a json web token
+          return res.status(440).json({ message: 'Invalid token.' });
         } else { // Recognized token that has expired.
           return res.status(440).json({ message: 'Session timed out.' })
         }

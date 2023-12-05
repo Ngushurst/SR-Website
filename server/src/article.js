@@ -1,8 +1,8 @@
-const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json'));
 const { dbquery } = require('./db');
 const store = require('./file-store');
 const fs = require('fs');
 
+const config = JSON.parse(fs.readFileSync(process.cwd() + '/config.json'));
 /**
  * Handles actions related to Articles and Article Categories.
  **/
